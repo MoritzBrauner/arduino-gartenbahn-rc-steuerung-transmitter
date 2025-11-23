@@ -72,15 +72,71 @@ void loop() {
   data.ry = analogRead(4);
   data.rz = digitalRead(A5);
 
-  //Min und max setzen  
-  minValues.lx = min(data.lx, minValues.lx); 
-  minValues.rx = min(data.ly, minValues.ly); 
+  Serial.print(data.lx);
+  Serial.print("   ");
+  
+  Serial.print(data.ly);
+  Serial.print("   ");
+  
+  Serial.print(data.rx);
+  Serial.print("   ");
+  
+  Serial.print(data.ry);
+  Serial.print("   ");
+  
+  Serial.print("|");
 
+
+  //Recorded Min Setzen
+  minValues.lx = min(data.lx, minValues.lx); 
+  minValues.ly = min(data.ly, minValues.ly); 
+  minValues.rx = min(data.rx, minValues.rx); 
+  minValues.ry = min(data.ry, minValues.ry); 
+  //Recorded Max Setzen 
+  maxValues.lx = max(data.lx, maxValues.lx);
+  maxValues.ly = max(data.ly, maxValues.ly);
+  maxValues.rx = max(data.rx, maxValues.rx);
+  maxValues.ry = max(data.ry, maxValues.ry);
 
   //Analoge Reads den min / max-werten zumappen 
+  data.lx = map(data.lx, minValues.lx, maxValues.lx, 0, 1024);
+  data.ly = map(data.ly, minValues.ly, maxValues.ly, 0, 1024);
+  data.rx = map(data.rx, minValues.rx, maxValues.rx, 0, 1024);
+  data.ry = map(data.ry, minValues.ry, maxValues.ry, 0, 1024);
 
+  Serial.print(data.lx);
+  Serial.print("   ");
+  
+  Serial.print(data.ly);
+  Serial.print("   ");
+  
+  Serial.print(data.rx);
+  Serial.print("   ");
+  
+  Serial.print(data.ry);
+  Serial.print("   ");
+  
+  Serial.print("|");
 
+  Serial.print(minValues.lx);
+  Serial.print("   ");
+  Serial.print(minValues.ly);
+  Serial.print("   ");
+  Serial.print(minValues.rx);
+  Serial.print("   ");
+  Serial.print(minValues.ry);
+  Serial.print("   ");
 
+  Serial.print("|");
+  Serial.print(maxValues.lx);
+  Serial.print("   ");
+  Serial.print(maxValues.ly);
+  Serial.print("   ");
+  Serial.print(maxValues.rx);
+  Serial.print("   ");
+  Serial.print(maxValues.ry);
+  Serial.println("   ");
+  
   //Daten senden 
   radio.write(&data, sizeof(Data_Package));
   //Serial.println("Sende ..");
