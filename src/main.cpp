@@ -56,6 +56,7 @@ void debugAnalogInputs(const String msg) {
 void setup() {
   Serial.begin(9600);
   Serial.println();
+  Serial.println("Program: RC-Transmitter");
   Serial.println("Setup - Start");
 
   //Radio Starten 
