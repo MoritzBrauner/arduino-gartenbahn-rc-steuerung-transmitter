@@ -44,8 +44,10 @@ void debugAnalogInputs(const String msg) {
    Serial.print(
     msg + ":  lx: " + data.lx +
     "   ly: " + data.ly +
+    "   lz: " + data.lz +
     "   rx: " + data.rx +
     "   ry: " + data.ry +
+    "   rz: " + data.rz +
     "   |   "
   );
 }
