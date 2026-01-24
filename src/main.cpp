@@ -2,10 +2,14 @@
 #include <nRF24L01.h>
 #include <RF24.h>
 
-#define DEBUG false //Debug Variable for Logging 
+#define DEBUG false //Debug Variable for Logging
+
 #define DEFAULT_MIN_VALUE 50 //Stanardwert für Min/Max auslesen
 #define DEFAULT_MAX_VALUE 974
 #define CUTOFF 50
+
+#define DEFAULT_ANALOG_VALUE 512
+#define DEFAULT_DIGITAL_VALUE 0
 
 //Radio - Pins NRF24 
 RF24 radio(7, 8); // CE, CSN
@@ -13,27 +17,27 @@ RF24 radio(7, 8); // CE, CSN
 //Adresse 
 const byte address[6] = "00100";
 
-//Datenpaket zum Senden 
+//Data Package 
 struct Data_Package {
-  int lx = 0;
-  int ly = 0; 
-  bool lz = 0; 
+  uint16_t lx = DEFAULT_ANALOG_VALUE;
+  uint16_t ly = DEFAULT_ANALOG_VALUE;
+  uint8_t  lz = DEFAULT_DIGITAL_VALUE;
 
-  int rx = 0; 
-  int ry = 0; 
-  bool rz = 0; 
+  uint16_t rx = DEFAULT_ANALOG_VALUE;
+  uint16_t ry = DEFAULT_ANALOG_VALUE;
+  uint8_t  rz = DEFAULT_DIGITAL_VALUE;;
 };
 //Datenpacket als "data" festlegen
 Data_Package data;
 
 //Helper Function to Constrain input between upper and lower limit
-void normalizeInput(int &input) {
+void normalizeInput(uint16_t &input) {
   const short lowerCap = CUTOFF; 
   const short higherCap = 1024 - CUTOFF; 
   input = constrain(input, lowerCap, higherCap);
 }
 
-void mapFrom0To1024(int &input) {
+void mapFrom0To1024(uint16_t &input) {
   const short lowerCap = CUTOFF; 
   const short higherCap = 1024 - CUTOFF;
   input = map(input, lowerCap, higherCap, 0, 1024); 
