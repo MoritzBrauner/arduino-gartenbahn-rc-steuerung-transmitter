@@ -1,3 +1,4 @@
+//Arduino Nano Transmitter
 #include <SPI.h>
 #include <nRF24L01.h>
 #include <RF24.h>
@@ -8,9 +9,6 @@
 #define DEFAULT_MAX_VALUE 974
 #define CUTOFF 50
 
-#define DEFAULT_ANALOG_VALUE 512
-#define DEFAULT_DIGITAL_VALUE 0
-
 //Radio - Pins NRF24 
 RF24 radio(7, 8); // CE, CSN
 
@@ -19,13 +17,13 @@ const byte address[6] = "00100";
 
 //Data Package 
 struct Data_Package {
-  uint16_t lx = DEFAULT_ANALOG_VALUE;
-  uint16_t ly = DEFAULT_ANALOG_VALUE;
-  uint8_t  lz = DEFAULT_DIGITAL_VALUE;
+  uint16_t lx;
+  uint16_t ly;
+  uint8_t  lz;
 
-  uint16_t rx = DEFAULT_ANALOG_VALUE;
-  uint16_t ry = DEFAULT_ANALOG_VALUE;
-  uint8_t  rz = DEFAULT_DIGITAL_VALUE;;
+  uint16_t rx;
+  uint16_t ry;
+  uint8_t  rz;
 };
 //Datenpacket als "data" festlegen
 Data_Package data;
